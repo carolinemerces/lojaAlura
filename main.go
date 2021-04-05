@@ -4,7 +4,6 @@ import (
 	"database/sql"
 	"net/http"
 	"text/template"
-
 	_ "github.com/lib/pq"
 )
 
