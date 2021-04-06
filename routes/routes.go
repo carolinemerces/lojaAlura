@@ -9,4 +9,5 @@ import (
 func CarregaRotas() {
 	http.HandleFunc("/", controlles.Index)
 	http.HandleFunc("/new", controlles.New)
+	http.HandleFunc("/insert", controlles.Insert)
 }
