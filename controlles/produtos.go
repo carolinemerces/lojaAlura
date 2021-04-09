@@ -9,6 +9,8 @@ import (
 	"github.com/carolinemerces/lojaAlura/models"
 )
 
+const redirectCode int = 301
+
 //encapsula os templates e devolve um erro
 var temp = template.Must(template.ParseGlob("templates/*.html"))
 
@@ -42,15 +44,17 @@ func Insert(w http.ResponseWriter, r *http.Request) {
 		models.CriaNovoProduto(nome, descricao, precoConvertidoParaFloat, quantidadeConvertidoParaInt)
 	}
 
-	http.Redirect(w, r, "/", 301)
+	http.Redirect(w, r, "/", redirectCode)
 }
 
 func Delete(w http.ResponseWriter, r *http.Request){
 	idDoProduto := r.URL.Query().Get("id")
 	models.DeletaProduto(idDoProduto)
-	http.Redirect(w, r, "/", 301)
+	http.Redirect(w, r, "/", redirectCode)
 }
 
 func Edit(w http.ResponseWriter, r *http.Request) {
-	temp.ExecuteTemplate(w, "Edit", nil)
+	idDoProduto := r.URL.Query().Get("id")
+	produto := models.EditaProduto(idDoProduto)
+	temp.ExecuteTemplate(w, "Edit", produto)
 }
